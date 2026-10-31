@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel — watch the hiring committee argue</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="brand">PANEL</div>
+    <div class="tag">simulated committee · know why before they say no</div>
+    <div id="fallback-badge" class="fallback hidden">FALLBACK</div>
+  </header>
+  <main>
+    <section id="screen-intake">
+      <h1>Watch the hiring committee argue about you.</h1>
+      <p class="lede">Ramble about your career. Three interviewers debate you live, stop to ask you questions, and vote. Answer by voice.</p>
+      <label>Target role</label>
+      <div class="row" id="roles">
+        <button class="chip on" data-role="APM — fintech">APM — fintech</button>
+        <button class="chip" data-role="PM — SaaS">PM — SaaS</button>
+      </div>
+      <label for="jd">Job description</label>
+      <select id="jd"></select>
+      <label for="ramble">Your story</label>
+      <textarea id="ramble" rows="6" placeholder="Hold your Wispr Flow key and talk. Ramble, it's fine."></textarea>
+      <label for="docs">Resume, cover letter, LinkedIn — paste anything (optional)</label>
+      <textarea id="docs" rows="4" placeholder="Paste your resume or cover letter. The panel can quote it as evidence."></textarea>
+      <div class="row">
+        <button id="btn-demo" type="button">Use demo answer</button>
+        <button id="btn-convene" type="button" class="primary">Convene the panel</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section id="screen-panel" class="hidden">
+      <div id="panelists" class="panelists"></div>
+      <div id="trace-box" class="trace-box">
+        <div class="trace-head">🤖 What the panel is doing <span id="trace-status" class="trace-status"></span></div>
+        <div id="trace"></div>
+      </div>
+      <div id="banner" class="banner hidden"></div>
+      <p id="finish" class="finish hidden"></p>
+      <h2>The debate</h2>
+      <div id="chat"></div>
+      <div id="followup" class="hidden">
+        <h2 id="q-from"></h2>
+        <div class="question" id="q-text"></div>
+        <p class="dim" id="q-why"></p>
+        <textarea id="answer" rows="3" placeholder="Hold your Wispr Flow key and answer."></textarea>
+        <div class="row">
+          <button id="btn-demo2" type="button">Use demo answer</button>
+          <button id="btn-answer" type="button" class="primary">Answer the panel</button>
+        </div>
+      </div>
+      <h2>The rubric</h2>
+      <table id="rubric">
+        <thead><tr><th>Dimension</th><th>Score</th><th>Evidence</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="row">
+        <button id="btn-plan" type="button" class="primary">See your report →</button>
+        <button id="btn-startover" type="button">Start over</button>
+      </div>
+    </section>
+
+    <section id="screen-plan" class="hidden">
+      <h1>Your report</h1>
+      <p class="lede" id="plan-status">Building your report…</p>
+      <div id="report-verdict" class="banner hidden"></div>
+      <div id="report-panel" class="panelists"></div>
+      <h2>What the panel asked you</h2>
+      <div id="report-qa"></div>
+      <h2>Gap map</h2>
+      <div id="gaps"></div>
+      <h2>Weeks</h2>
+      <div id="weeks"></div>
+      <h2>Portfolio projects</h2>
+      <div id="projects"></div>
+      <h2>Progress</h2>
+      <div id="progress"></div>
+      <h2>Share card</h2>
+      <div id="share-card">
+        <div class="share-brand">PANEL</div>
+        <div class="share-role" id="share-role"></div>
+        <div class="share-vote" id="share-vote"></div>
+        <div class="share-line" id="share-line"></div>
+        <div class="share-fine">simulated committee · panel</div>
+      </div>
+      <div class="row">
+        <button id="btn-png" type="button">Download PNG</button>
+        <button id="btn-caption" type="button">Copy LinkedIn caption</button>
+      </div>
+      <h2>Application tracker</h2>
+      <textarea id="app-log" rows="2" placeholder="e.g. Applied to Razorpay APM through a referral, they replied"></textarea>
+      <div class="row"><button id="btn-logapp" type="button">Log application</button></div>
+      <div id="app-rates"></div>
+      <div id="app-list"></div>
+      <div class="row">
+        <button id="btn-back" type="button">← Back to panel</button>
+        <button id="btn-startover2" type="button">Start over</button>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

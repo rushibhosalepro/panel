@@ -1,0 +1,16 @@
+Associate Product Manager — Payments (Bengaluru / Hybrid)
+
+Our payments team moves money for 40,000 merchants. We are hiring an APM to own a slice of the merchant onboarding roadmap.
+
+What you'll own:
+- A slice of the onboarding roadmap end to end, from discovery to launch to measurement.
+- Weekly user contact: sit with merchants, support agents, and risk analysts.
+- Success metrics for every launch: KYC completion, checkout conversion, failure rates.
+- Tradeoff calls with engineering: what ships now, what waits, and why.
+- Crisp specs; saying no to good ideas that don't move the metric.
+
+What we're looking for:
+- 1–4 years building or shipping software (engineer, analyst, founder).
+- Proof of ownership: something you decided and shipped, with scope.
+- Customer obsession: at least one example of changing a plan because of user feedback.
+- Comfort with numbers: you measure your own work and can name the outcome.

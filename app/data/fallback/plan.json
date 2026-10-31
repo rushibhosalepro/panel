@@ -1,0 +1,12 @@
+{
+  "weeks": [
+    { "week": 1, "focus": "Talk to users for the first time", "tasks": ["Interview 3 merchants about onboarding pain", "Write up the top 5 quotes verbatim", "Map one quote to each onboarding screen"] },
+    { "week": 2, "focus": "Turn feedback into a decision", "tasks": ["Pick the worst drop-off step from your notes", "Propose a concrete fix with a mock", "Get 2 users to react to the mock"] },
+    { "week": 3, "focus": "Measure like a PM", "tasks": ["Define one metric for your fix", "Build a before/after dashboard sketch", "Write the launch note you would send"] },
+    { "week": 4, "focus": "Ship the artifact", "tasks": ["Publish the teardown as a case study", "Ask 2 PMs for a brutally honest review", "Re-run the panel and watch user_focus move"] }
+  ],
+  "projects": [
+    { "gap": "user_focus", "title": "Teardown of a fintech onboarding flow", "why": "Proves you can find user pain and turn it into a fix — exactly what the Founder asked for." },
+    { "gap": "user_focus", "title": "KYC completion case study", "why": "Shows before/after metrics on a real flow, closing the evidence gap." }
+  ]
+}

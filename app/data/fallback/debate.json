@@ -1,0 +1,16 @@
+{
+  "lines": [
+    { "panelist": "eng_manager", "text": "She shipped the payments revamp end to end. That is not a supporting role, that is ownership.", "quote": "I shipped the payments revamp" },
+    { "panelist": "product_lead", "text": "I agree on ownership. But listen to this: 'kind of handled the launch'. 'Kind of' is doing a lot of work in that sentence.", "quote": "I kind of handled the launch" },
+    { "panelist": "founder", "text": "Numbers are real — checkout failures down 30%. I just have one question: who is the user here?", "quote": "Checkout failures dropped 30%" },
+    { "panelist": "eng_manager", "text": "Someone who says no to a six-month rewrite and ships the patch understands tradeoffs. I want that person on my team.", "quote": "We said no to the full rewrite" },
+    { "panelist": "product_lead", "text": "The tradeoff story is good. Still, a PM who never mentions a single customer makes me nervous.", "quote": null },
+    { "panelist": "founder", "text": "Exactly. Zero users, zero merchants, zero customers. I cannot hire a PM on zero signal.", "quote": null },
+    { "panelist": "product_lead", "text": "Ownership and impact carry her for me. Hire — but someone better ask her about users before the offer letter.", "quote": null }
+  ],
+  "verdicts": {
+    "product_lead": "Hire: ownership and impact outweigh the user gap.",
+    "eng_manager": "Hire: ships real things and makes hard calls.",
+    "founder": "No hire: no users mentioned, and that is my red line."
+  }
+}

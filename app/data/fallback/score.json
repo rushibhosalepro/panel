@@ -1,0 +1,8 @@
+{
+  "scores": {
+    "ownership": { "score": 3, "quote": "I shipped the payments revamp" },
+    "user_focus": { "score": 0, "quote": null },
+    "impact": { "score": 3, "quote": "Checkout failures dropped 30%" },
+    "tradeoffs": { "score": 2, "quote": "We said no to the full rewrite" }
+  }
+}

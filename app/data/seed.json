@@ -1,0 +1,8 @@
+{
+  "sessions": [],
+  "applications": [
+    { "company": "Razorpay", "role": "APM", "channel": "referral", "status": "replied", "date": "2026-10-28" },
+    { "company": "CRED", "role": "APM", "channel": "referral", "status": "replied", "date": "2026-10-29" },
+    { "company": "Zeta", "role": "APM", "channel": "job-board", "status": "ghosted", "date": "2026-10-30" }
+  ]
+}

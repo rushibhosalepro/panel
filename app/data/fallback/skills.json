@@ -1,0 +1,9 @@
+{
+  "skills": [
+    { "name": "Roadmap ownership", "dimension": "ownership" },
+    { "name": "User research", "dimension": "user_focus" },
+    { "name": "Metrics and experimentation", "dimension": "impact" },
+    { "name": "Prioritization", "dimension": "tradeoffs" },
+    { "name": "Spec writing", "dimension": "ownership" }
+  ]
+}

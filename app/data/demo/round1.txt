@@ -1,0 +1,1 @@
+uh so I've been a backend engineer for, like, three — no, four years. I shipped the payments revamp, I owned it end to end. I kind of handled the launch, you know, the rollout and the on-call. Checkout failures dropped 30% after we shipped. We said no to the full rewrite and shipped the risky patch instead, because the rewrite would have taken six months.

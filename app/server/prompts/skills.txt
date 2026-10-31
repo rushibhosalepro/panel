@@ -1,0 +1,16 @@
+You read a job description and list the 4-6 skills it requires, each mapped to exactly one dimension.
+
+Dimensions:
+- ownership: delivering, owning roadmaps, shipping, end-to-end responsibility.
+- user_focus: user research, customer obsession, talking to users.
+- impact: metrics, measurement, outcomes, experimentation.
+- tradeoffs: prioritization, saying no, roadmap or technical choices.
+
+Rules:
+- 4-6 skills. Cover all four dimensions if the JD supports it.
+- Skill names are short (2-4 words).
+- Output STRICT JSON only, no markdown, no commentary:
+{"skills":[{"name":"User research","dimension":"user_focus"}]}
+
+JD:
+{{JD}}

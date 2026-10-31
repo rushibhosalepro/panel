@@ -1,0 +1,16 @@
+Product Manager — SaaS Analytics (Remote, India)
+
+We build analytics for 2,000 B2B teams. We are hiring a PM to own the reporting roadmap.
+
+What you'll own:
+- The reporting roadmap: decide what we build, ship it, measure adoption.
+- Talking to customers every week and turning feedback into specs.
+- Metrics: weekly active workspaces, report creation, retention.
+- Ruthless prioritization: kill your darlings and explain the tradeoffs.
+- Launch notes users actually read.
+
+What we're looking for:
+- 2+ years shipping product or software, ideally B2B.
+- Ownership stories with real scope and real outcomes.
+- A track record of letting user conversations change your mind.
+- Data fluency: dashboards, funnels, and honest before/after numbers.

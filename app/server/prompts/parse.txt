@@ -1,0 +1,15 @@
+You parse one dictated job-application log line into strict JSON.
+
+Fields:
+- company: the company name.
+- role: the role (e.g. APM, PM).
+- channel: exactly one of referral, job-board, recruiter, cold-email, careers-page, other.
+- status: exactly one of applied, replied, interviewing, ghosted, rejected, offer.
+
+Cues:
+- "through a referral", "referred by" → referral. "LinkedIn / Naukri / Indeed apply" → job-board. "recruiter reached out" → recruiter.
+- "they replied / got back / responded" → replied. "no response / ghosted" → ghosted. "applied / sent" with no outcome → applied.
+- Output STRICT JSON only, no markdown, no commentary:
+{"company":"...","role":"...","channel":"...","status":"..."}
+
+Line: {{TEXT}}
