@@ -1,111 +1,119 @@
-# Panel — an AI hiring committee that debates whether to hire you
+# Panel
 
-**Ramble about your career. Three interviewers argue about you live, stop to ask you questions, and vote. Answer back by voice, and watch the vote flip.**
+Ramble about your career, and three AI interviewers argue about whether to hire you. They stop mid-debate to grill you, you answer by voice, and you watch the vote flip.
 
-🎥 **Demo video:** https://www.youtube.com/watch?v=H-J7F2KsisM
+I built it because career switchers get rejected without ever learning which sentence cost them the job. Panel lets you hear it.
 
-Built for the **Agentic AI Hackathon '26 — Product Space × Wispr Flow**, problem statement **#05: Career pivot coach**.
+**Status:** deployed and verified at **https://panel-cqwl.onrender.com**
+**Video (3 min):** https://www.youtube.com/watch?v=H-J7F2KsisM
+**Built for fun at:** Agentic AI Hackathon '26 (Product Space × Wispr Flow), problem #05 *Career pivot coach*
 
----
+> The free Render instance naps when idle. The first load can take 30 to 60 seconds. Then it's quick.
 
-## The problem
+## What happens in one run
 
-Career switchers get rejected without ever knowing why. A rejection email says "we went with other candidates", not "you never once mentioned a user". Generic AI interview coaches give generic feedback and can't tell you which sentence cost you the job.
+1. Pick a role (APM at a fintech, or PM at a SaaS company) backed by a real job description. Hold your Wispr Flow key and talk for a minute. Filler words welcome. Paste a resume or cover letter if you want.
+2. 👩‍💼 Product Lead, 👨‍💻 Eng Manager and 🧑‍🚀 Founder score you on 4 things (ownership, user focus, impact, tradeoffs), then argue in a group chat, quoting your exact words.
+3. Someone has a doubt, so they interrupt: *"Tell me about a time you talked to a customer and changed your plan."* You answer out loud.
+4. They re-score, react, and maybe ask again (3 questions max). The banner says "vote so far" until they're done. No verdict while you're still talking.
+5. You get a report: the final vote, each panelist's score, every question with your answer, a gap map from the job description, a 4 to 6 week plan, portfolio projects for each gap, and a share card.
 
-## What Panel does
+On the demo script the vote goes **2–1 → 3–0** after one answer. The Founder vetoes round one because you never mentioned a single user.
 
-1. **Intake.** Pick a target role and a real job description. Hold your Wispr Flow key and ramble about your career, filler words and all. Optionally paste your resume or cover letter.
-2. **Live debate.** Three panelists (👩‍💼 Product Lead, 👨‍💻 Eng Manager, 🧑‍🚀 Founder) score you against a rubric and argue about you in a group chat, quoting your exact words.
-3. **Interruptions.** When a panelist has a doubt you could clear up, they cut into the debate and ask you one specific question. You answer by voice. The panel re-scores, reacts, and may ask again (up to 3 questions).
-4. **The vote.** Each panelist votes HIRE or NO HIRE. While the interview is running the banner says *"vote so far"*; the verdict is only final when the panel finishes.
-5. **The report.** Final vote, each panelist's weighted score and veto, every question with your answer, a skill-gap map built from the job description, a week-by-week plan, portfolio projects matched to each gap, a progress strip across rounds, a LinkedIn share card, and a voice-logged application tracker.
+## The part I like most: the AI argues, code decides
 
-## Core principle: the committee argues, the rubric decides
+The panel is an LLM. The vote is not.
 
-The LLM never decides your vote.
-
-- The agent **proposes** scores with quotes. **Code checks** that every quote really appears in what you said or pasted; an invented quote scores 0 and shows as "no evidence".
-- **Code computes** the votes from verified scores: a weighted score ≥ 1.5 is a HIRE, and each panelist has a red line (the Founder auto-votes NO HIRE if user focus is 0).
-- Debate lines are checked the same way: a quote the agent can't back up is dropped.
-- Scores only go up across rounds ("best evidence wins"), so an answer can't make you worse.
-
-| Dimension | 0 | 3 |
-|---|---|---|
-| Ownership | "helped with", "kind of" | "I shipped it", end to end, with a decision you made |
-| User focus | no users mentioned | talked to users and changed something because of it |
-| Impact | no outcomes | quantified before/after |
-| Tradeoffs | no choices | what you chose, what you gave up, and why |
+- The agent proposes a score with a quote. **Code checks the quote is really in what you said.** If it isn't, the score is 0 and the screen says "no evidence."
+- Votes are plain math: weighted score ≥ 1.5 is HIRE. Each panelist has a red line (the Founder's is user focus at 0).
+- Debate lines get the same quote check. A quote it can't back up gets dropped, so the panel can't put words in your mouth.
+- Scores only go up between rounds. A bad answer can't cost you what you already proved.
 
 | Panelist | Ownership | User focus | Impact | Tradeoffs |
 |---|---|---|---|---|
 | 👩‍💼 Product Lead | 0.3 | 0.3 | 0.2 | 0.2 |
 | 👨‍💻 Eng Manager | 0.5 | 0.1 | 0.3 | 0.1 |
-| 🧑‍🚀 Founder | 0.1 | **0.5** (red line) | 0.3 | 0.1 |
+| 🧑‍🚀 Founder | 0.1 | **0.5, red line** | 0.3 | 0.1 |
 
-## How the agent works
+## How the agent runs the room
 
-One tool-calling loop runs the whole interview. Every tool is executed by plain code:
+One tool-calling loop. The model picks the tool; code runs it.
 
-| Tool | What code does with it |
+| Tool | What code does |
 |---|---|
-| `score_evidence` | Verifies the quote against your words; unverified → 0 |
-| `cast_votes` | Computes votes from verified scores (weights, threshold, vetoes) |
-| `panel_say` | Streams one debate line to you live; drops any quote it can't find |
-| `ask_candidate` | Pauses the interview and shows you the question (only after the panel has debated) |
-| `finish_interview` | Ends the interview (only once votes are current and the panel has reacted) |
+| `score_evidence` | Checks the quote against your words. Unverified means 0. |
+| `cast_votes` | Computes votes from the verified scores. |
+| `panel_say` | Streams one debate line to your screen live. Drops fake quotes. |
+| `ask_candidate` | Pauses for your answer. Refused until the panel has debated at least 2 lines. |
+| `finish_interview` | Ends it. Refused if votes are stale or nobody reacted to your last answer. |
 
-The trace of every tool call is shown on screen as it happens.
+Every call shows up in the "What the panel is doing" trace as it happens.
 
 ## Voice
 
-Wispr Flow is the main input, for the career ramble and for every answer to the panel. Real speech is messy, so the agent drops filler words (uh, um, you know) when quoting, resolves self-corrections ("three, no, four years" → four), and keeps hedges like "kind of" because they are evidence.
-
-## Built to survive a live demo
-
-- If the agent fails (no key, API down), the app drops to a fixed pipeline: score → vote → follow-up question → re-score.
-- Every LLM call validates its JSON, retries once, then falls back to canned output and shows a **FALLBACK** badge.
-- `OPENROUTER_OFF=1` forces the canned path on purpose.
-
-## Run it locally
-
-```bash
-cd app
-npm install
-cp .env.example .env   # set OPENROUTER_KEY
-npm test               # 24 rubric tests, no key needed
-npm start              # http://localhost:3100
-```
-
-Optional: `npm run check-model` confirms the model ID is live; `npm run test:live` checks live scores against hand-written ones.
-
-## Deploy on Render
-
-`render.yaml` at the repo root defines the web service. In the Render dashboard: **New → Blueprint**, pick this repo, and set `OPENROUTER_KEY` when asked. Render runs `npm ci` and `npm start` in `app/`, and checks `/api/health`.
-
-Sessions are stored in `app/data/sessions.json`, which resets whenever the service restarts on Render. That's fine for a demo.
+Wispr Flow is the input for the ramble and every answer. The agent drops "uh", "um" and "you know" when quoting, resolves "three, no, four years" to four, and keeps "kind of" because hedging is evidence. ("I *kind of* handled the launch" is the Product Lead's favourite line.)
 
 ## Stack
 
-Node + Express + vanilla JS, no build step. Dependencies: `express`, `dotenv`. LLM via OpenRouter (Claude Haiku). Tests use the built-in `node --test`.
+| Layer | What's running |
+|---|---|
+| Server | Node 22 + Express, no build step |
+| Agent | OpenRouter tool calling, Claude Haiku 4.5 |
+| Rules | `rubric.js`: quote checks, weights, vetoes, ratchet. No LLM. |
+| UI | One page of vanilla JS, live updates over NDJSON |
+| Storage | `data/sessions.json` (resets when Render restarts) |
+| Tests | `node --test`, 30 tests, no API key needed |
+| Hosting | Render free web service, `render.yaml` blueprint |
 
-## Repo layout
+## Run it
+
+```bash
+git clone https://github.com/rushibhosalepro/panel.git
+cd panel/app
+cp .env.example .env
+npm ci
+npm test
+npm start
+```
+
+Open http://localhost:3100
+
+No key? It still runs. Every AI call falls back to canned demo output and shows a yellow **FALLBACK** badge.
+
+## Environment
+
+| Name | What it's for |
+|---|---|
+| `OPENROUTER_KEY` | Live AI calls. Leave empty for the canned demo. |
+| `OPENROUTER_MODEL` | Model ID. Deployed with `anthropic/claude-haiku-4.5`. |
+| `OPENROUTER_DEBATE_MODEL` | Optional bigger model for the fallback debate writer. |
+| `OPENROUTER_OFF` | Set to `1` to force canned output on purpose (demo safety switch). |
+| `PORT` | Defaults to 3100. Render sets its own. |
+
+## Layout
 
 ```
 app/
-  server/index.js      routes, streaming interview endpoints
-  server/agent.js      the tool-calling interview agent
-  server/rubric.js     quote checks, votes, vetoes, ratchet (no LLM)
-  server/llm.js        OpenRouter calls, retry, fallback
-  server/prompts/      agent, score, debate, skills, plan, parse
-  public/              single-page UI
-  data/jds/            real job descriptions
-  data/demo/           demo ramble + demo answer
-  data/fallback/       canned outputs for the demo
-  test/                rubric eval suite
-PLAN.md                build plan
-HACKATHON.md           hackathon brief and problem statements
+  server/index.js       routes and the streaming interview endpoints
+  server/agent.js       the tool-calling interview agent
+  server/rubric.js      quote checks, votes, vetoes (no LLM)
+  server/llm.js         OpenRouter calls, retry, fallback
+  server/prompts/       agent, score, debate, skills, plan, parse
+  public/               the single-page UI
+  data/jds/             two real job descriptions
+  data/demo/            demo ramble and demo answer
+  data/fallback/        canned outputs so the demo never dies
+  test/                 rubric and agent-loop tests
+render.yaml             Render blueprint
+PLAN.md                 the build plan, written before the code
 ```
 
-## Disclaimer
+## What broke (and what I did about it)
 
-Panel is a **simulated** committee for practice. Its opinions are not those of any real company or interviewer.
+- **The verdict showed up while the Founder was still waiting for my answer.** The big "2–1 HIRE ✅" banner read like a final result mid-interview. Now it says "vote so far" until `finish_interview`.
+- **Every AI call on Render returned HTTP 402.** The key had a $1 cap with $0.30 left, and without `max_tokens` OpenRouter reserves the model's whole output window (about $0.32) per request. The app quietly fell back to canned answers, so it *looked* fine. Capping `max_tokens` at 2,000 fixed it.
+- **Render didn't auto-deploy the fix.** The push landed on GitHub, nothing happened, and I deployed the commit by hand with the Render CLI.
+
+## What this is not
+
+A simulated committee for practice and laughs. It isn't any real company's opinion, and it can't tell you whether you'll actually get hired. It only knows what you told it.
