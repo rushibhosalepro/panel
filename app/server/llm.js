@@ -1,6 +1,9 @@
 const fs = require('fs');
 
 const DEFAULT_MODEL = 'anthropic/claude-haiku-5.5';
+// OpenRouter reserves credit for max_tokens up front; unset, that's the model's whole output window,
+// which a capped key can't cover (HTTP 402). Our replies are small JSON or a few tool calls.
+const MAX_TOKENS = 2000;
 
 function modelFor(kind) {
   if (kind === 'debate') return process.env.OPENROUTER_DEBATE_MODEL || process.env.OPENROUTER_MODEL || DEFAULT_MODEL;
@@ -31,7 +34,8 @@ async function callOpenRouter({ prompt, model, kind, fallbackPath, label }) {
         body: JSON.stringify({
           model: model || modelFor(kind),
           messages: [{ role: 'user', content: prompt }],
-          temperature: 0
+          temperature: 0,
+          max_tokens: MAX_TOKENS
         })
       });
       if (!res.ok) throw new Error(`OpenRouter HTTP ${res.status}`);
@@ -62,7 +66,7 @@ async function chatWithTools({ messages, tools, kind, label }) {
           'HTTP-Referer': 'http://localhost:3100',
           'X-Title': 'panel-hackathon'
         },
-        body: JSON.stringify({ model: modelFor(kind), messages, tools, tool_choice: 'auto', temperature: 0 })
+        body: JSON.stringify({ model: modelFor(kind), messages, tools, tool_choice: 'auto', temperature: 0, max_tokens: MAX_TOKENS })
       });
       if (!res.ok) throw new Error(`OpenRouter HTTP ${res.status}`);
       const body = await res.json();
